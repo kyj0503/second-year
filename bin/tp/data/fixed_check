@@ -1,0 +1,35 @@
+경남대 자바종합프로젝트 - Data Line
+*------------------------------------------------------------*
+Frame 추가 시 필수 체크 사항
+
+
+- desion 추가 후 아래와 같은 사항을 추가하지 않는 경우 해당 Frame은 정상 실행되지 않음
+	ㄴ tp.module.module (select, call_???) 추가
+	ㄴ tp.design.di_select : 상단 module 번호, Link Frame Type 추가
+
+
+- Desgin 추가 시
+	ㄴ app.design_panel.???.desion.java
+	ㄴ 상단 파일 tp.design.di_???.java에 연결
+	
+	di_??? 파일 내 구성은 다음과 같이 구성
+		------------------------------
+		public void load(JFrame i) {
+
+		???_desion ds = new ???_desion();
+		i.add(ds);
+		i.setVisible(true);
+		------------------------------
+		
+- Text 데이터 수정 위치
+	ㄴ tp.data.app_data.java
+	
+- Program Mapping
+	ㄴ main
+		ㄴ di_login_intro
+			ㄴ di_login
+				ㄴ di_login_create_account
+				ㄴ di_select
+					ㄴ di_main
+					ㄴ di_calendar
+					ㄴ di_option
