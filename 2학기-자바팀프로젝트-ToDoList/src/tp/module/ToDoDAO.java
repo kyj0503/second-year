@@ -27,6 +27,14 @@ public class ToDoDAO {
         return dao;
     }
 
+    private static String requiredEnv(String name) throws SQLException {
+        String value = System.getenv(name);
+        if (value == null || value.trim().isEmpty()) {
+            throw new SQLException("Required environment variable is missing: " + name);
+        }
+        return value;
+    }
+
     /**
      * 데이터베이스 연결을 얻기 위한 메서드
      * 
@@ -42,9 +50,9 @@ public class ToDoDAO {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 
             // 데이터베이스 서버에 연결
-            String url = "jdbc:mysql://bitemap.crkywica6qbw.ap-northeast-2.rds.amazonaws.com:3306/" + databaseName;
-            String user = "kyj0503";
-            String password = "wara0503";
+            String url = requiredEnv("TODO_DB_URL_PREFIX") + databaseName;
+            String user = requiredEnv("TODO_DB_USER");
+            String password = requiredEnv("TODO_DB_PASSWORD");
             conn = DriverManager.getConnection(url, user, password);
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();
